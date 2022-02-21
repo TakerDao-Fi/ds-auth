@@ -1,4 +1,5 @@
-// SPDX-License-Identifier: GNU-3
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity >=0.4.23;
+pragma solidity >=0.6.12;
 
 interface DSAuthority {
     function canCall(
@@ -34,18 +35,12 @@ contract DSAuth is DSAuthEvents {
         emit LogSetOwner(msg.sender);
     }
 
-    function setOwner(address owner_)
-        public
-        auth
-    {
+    function setOwner(address owner_) virtual public auth {
         owner = owner_;
         emit LogSetOwner(owner);
     }
 
-    function setAuthority(DSAuthority authority_)
-        public
-        auth
-    {
+    function setAuthority(DSAuthority authority_) virtual public auth {
         authority = authority_;
         emit LogSetAuthority(address(authority));
     }

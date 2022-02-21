@@ -1,4 +1,5 @@
-// SPDX-License-Identifier: GNU-3
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity >=0.4.23;
+pragma solidity >=0.6.12;
 
 import "ds-test/test.sol";
 
@@ -41,7 +42,13 @@ contract DSAuthTest is DSTest, DSAuthEvents {
     FakeVault vault;
 
     function setUp() public {
-      vault = new FakeVault();
+        vault = new FakeVault();
+    }
+
+    function test_owner() public {
+        vault.access();
+        vault.setOwner(address(0));
+        emit LogSetOwner(address(0));
     }
 
     function testFail_non_owner_1() public {
